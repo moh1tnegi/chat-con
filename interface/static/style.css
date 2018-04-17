@@ -1,0 +1,16 @@
+body {
+	background-color: white;
+}
+
+.navbar-brand {
+    font-family: 'New Rocker', cursive;
+}
+
+.parallax {
+	background-image: url("images/parallax-bg.jpg");
+	height: 600px;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}

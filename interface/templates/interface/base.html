@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=New+Rocker" rel="stylesheet" type="text/css">
+	<title>Chat-App | Dashboard</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static '/style.css' %}">
+	<link rel="shortcut icon" href="{% static '/images/logo.jpeg' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'interface:dashboard' %}">Chat-app</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar1">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--<div class="top-hidden-fixed-nav" style="height:60px; width:100%;"></div>-->
+    {% block div %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
