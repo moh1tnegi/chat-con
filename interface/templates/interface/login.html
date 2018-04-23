@@ -1,14 +1,14 @@
 {% extends 'interface/base.html' %}
 
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'interface/css/login.css' %}">
+{% endblock %}
+
 {% block div %}
-    <div class="container">
-        <p>login 'ere manh!</p>
-        <form action="" method="post" class="login-auth">
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter your username"/><br>
-            <label for="user-pass">Password:</label>
-            <input type="password" id="user-pass" placeholder="*******"/>
-            <button type="submit" value="submit">Login</button>
-        </form>
+    <div class="container text-center">
+        <div class="row">
+            
+        </div>
     </div>
 {% endblock %}

@@ -1,10 +1,43 @@
 {% extends 'interface/base.html' %}
+
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'interface/css/index.css' %}">
+{% endblock %}
+
 {% block div %}
 	<div class="parallax">
-		<div class="container">
-			<h2 class="parallax-heading">Welcome, A very good day to you!</h2>
-		</div>
+		<p>
+			<button class="btn">Getting started</button>
+		</p>
 	</div>
-	<div class="container">
+	<div class="dash-board">
+		<div class="row">
+			<div class="col-md-4">
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+			</div>
+			<div class="col-md-8">
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+				<p>a<p>
+			</div>
+		</div>
 	</div>
 {% endblock %}
