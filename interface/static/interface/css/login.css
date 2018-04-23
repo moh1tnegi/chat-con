@@ -1,0 +1,10 @@
+.login-form {
+	padding-top: 100px;
+}
+
+body {
+	background-image: url("/static/interface/images/index-bg.jpg");
+	height: 600px;
+	background-position: center;
+	background-size: cover;
+}
