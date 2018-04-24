@@ -1,0 +1,34 @@
+body {
+	background-image: url("/static/interface/images/form-bg.jpg");
+	background-color: #90ee90;
+	height: 600px;
+	background-position: center;
+	background-size: cover;
+}
+
+hr {
+	border-width: 3px;
+}
+
+.form-div {
+	padding-top: 100px;
+}
+
+.form-box {
+	padding: 25px;
+	height: 500px;
+	width: 400px;
+	background-color: snow;
+	border-radius: 20px;
+}
+
+label {
+	margin-bottom: 20px;
+}
+
+.input-field {
+	background-color: transparent;
+	border: 1px solid #808080;
+	color: #000;
+	border-radius: 10px;
+}

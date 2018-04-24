@@ -14,14 +14,14 @@
 
 .btn {
 	font-size: 2em;
-	color: #000000;
-	border: 1px solid #000000;
+	color: #f7e6d0;
+	border: 1px solid #f7e6d0;
 	background-color: transparent;
 }
-.btn:hover {
-	border: 2px solid #f7e6d0;
-	color: #f7e6d0;
 
+.btn:hover {
+	border: 2px solid #000;
+	color: #000;
 }
 
 .dash-board {
