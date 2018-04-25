@@ -27,6 +27,7 @@ label {
 }
 
 .input-field {
+	padding-left: 5px;
 	background-color: transparent;
 	border: 1px solid #808080;
 	color: #000;
