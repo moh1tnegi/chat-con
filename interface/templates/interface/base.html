@@ -16,7 +16,7 @@
     <script src="{% static 'interface/js/opaq-nav.js' %}"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md fixed-top navbar-light">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark" role="navigation">
         <div class="container">
             <div class="col-md-2">
                 <a class="navbar-brand" href="{% url 'interface:dashboard' %}">Chat-app</a>
@@ -25,36 +25,30 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navbar1">
-                <div class="col-md-8">
+                <div class="col-md-7 offset-lg-1">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="{% url 'interface:dashboard' %}">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Contact Us</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">About Us</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="https://github.com/m0hitNegi/Chatting_web_app/issues" target="_blank">Report Issues</a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 offset-lg-1">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a href="login" class="nav-link">Login</a>
+                            <a href="{% url 'interface:login' %}" class="nav-link">Login</a>
                         </li>
                         <!-- <li class="verti-sep"></li> -->
                         <li class="nav-item active">
-                            <a href="signup" class="nav-link">Signup</a>
+                            <a href="{% url 'interface:signup' %}" class="nav-link">Signup</a>
                         </li>
                     </ul>
                 </div>
@@ -63,39 +57,6 @@
     </nav>
     {% block div %}
     {% endblock %}
-<!--     <footer class="page-footer font-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 py-5" align="center">
-                    <a class="tw-ic text-white" href="https://twitter.com/m0hitNegi">
-                        <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://github.com/m0hitNegi">
-                        <i class="fa fa-github fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://in.pinterest.com/mohitnegi165/">
-                        <i class="fa fa-pinterest fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://www.linkedin.com/in/mohit-negi-b71a9215b/">
-                        <i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://plus.google.com/116139644660390938853">
-                        <i class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://www.quora.com/profile/Mohit-Negi-95">
-                        <i class="fa fa-quora fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                    <a class="tw-ic text-white" href="https://stackoverflow.com/users/8972012/mohit-negi">
-                        <i class="fa fa-stack-overflow fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright py-3 text-center">
-            © 2018 Copyright:
-            <a href="{% url 'interface:dashboard' %}" style="color: white;">chatwith.com</a>
-        </div>
-    </footer> -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
