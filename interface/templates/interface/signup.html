@@ -1,10 +1,41 @@
 {% extends 'interface/base.html' %}
 
-{% block div %}
-    <div class="container">
-        <p>sign up 'ere manh!</p>
-        <form action="" method="post" class="singup-auth">
+{% load static %}
+{% block link %}
+	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/form.css' %}">
+{% endblock %}
 
-        </form>
+{% block div %}
+    <div class="container text-center form-div">
+    	<center>
+    		<div class="col form-box">
+    			<h1>Sign Up</h1><hr>
+		        <form action="" method="post" class="singup-auth">
+                    <label for="fsname">First Name: 
+                    </label>
+                    <input type="text" name="" class="input-field" placeholder=" Elon">
+
+                    <label for="lsname">Last Name:
+                    </label>
+                    <input type="text" name="" class="input-field" placeholder=" Musk">
+
+                    <label for="uname">Username:*
+                    </label>
+                    <input type="text" name="" class="input-field" placeholder=" 3l0nmu5k">
+
+                    <label for="phnum">Phone No:*
+                    </label>
+                    <input type="text" name="" class="input-field" placeholder=" 10-digit phone number">
+    		    </form>
+                <button type="submit" class="btn btn-success" style="margin-bottom: 20px;">Login</button><br>
+                <strong>Or signup with</strong><br>
+                <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-danger">Google</button>
+                    <button type="submit" class="btn btn-info">Facebook</button>
+                </div>
+                <hr>
+                <a href="{% url 'interface:login' %}">Already have an account?</a>
+   	    	</div>
+    	</center>
     </div>
 {% endblock %}

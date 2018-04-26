@@ -2,13 +2,35 @@
 
 {% load static %}
 {% block link %}
-    <link rel="stylesheet" href="{% static 'interface/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'interface/css/form.css' %}">
 {% endblock %}
 
 {% block div %}
-    <div class="container text-center">
-        <div class="row">
-            
-        </div>
+    <div class="container text-center form-div">
+        <center>
+            <div class="col form-box">
+                <h1>Log In</h1><hr><br>
+                <form>
+                    <label for="username">
+                        <strong>Username: </strong>
+                    </label>
+                    <input class="input-field" type="text" name="" placeholder=" Enter your username"/>
+                    <br>
+
+                    <label for="password">
+                        <strong>Password: </strong>
+                    </label>
+                    <input class="input-field" type="password" name="" placeholder=" ********">
+                </form><br>
+                <button type="submit" class="btn btn-success" style="margin-bottom: 20px;">Login</button><br>
+                <strong>Or login with</strong><br>
+                <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-danger">Google</button>
+                    <button type="submit" class="btn btn-info">Facebook</button>
+                </div>
+                <hr>
+                <a href="{% url 'interface:signup' %}">Create a new account</a> | <a href="#">Forgot Password?</a>
+            </div>
+        </center>
     </div>
 {% endblock %}
