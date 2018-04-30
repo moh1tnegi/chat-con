@@ -11,29 +11,28 @@
     		<div class="col form-box">
     			<h1>Sign Up</h1><hr>
 		        <form action="" method="post" class="singup-auth">
-                    <label for="fsname">First Name: 
-                    </label>
-                    <input type="text" name="" class="input-field" placeholder=" Elon">
+                    <label for="fname">First Name: </label>
+                    <input type="text" name="fname" class="input-field" placeholder=" Elon">
 
-                    <label for="lsname">Last Name:
-                    </label>
-                    <input type="text" name="" class="input-field" placeholder=" Musk">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" name="lname" class="input-field" placeholder=" Musk">
 
-                    <label for="uname">Username:*
-                    </label>
+                    <label for="uname">Username:*</label>
                     <input type="text" name="" class="input-field" placeholder=" 3l0nmu5k">
 
-                    <label for="phnum">Phone No:*
-                    </label>
+                    <label for="passwd">Password:</label>
+                    <input type="password" name="passwd" class="input-field" placeholder=" Enter a strong password.">
+
+                    <label for="phnum">Phone No:*</label>
                     <input type="text" name="" class="input-field" placeholder=" 10-digit phone number">
     		    </form>
-                <button type="submit" class="btn btn-success" style="margin-bottom: 20px;">Login</button><br>
+                <button type="submit" class="btn btn-success">Login</button><br>
                 <strong>Or signup with</strong><br>
-                <div style="margin-top: 10px;">
+                <div>
                     <button type="submit" class="btn btn-danger">Google</button>
                     <button type="submit" class="btn btn-info">Facebook</button>
                 </div>
-                <hr>
+                <hr style="margin-bottom: 5px;">
                 <a href="{% url 'interface:login' %}">Already have an account?</a>
    	    	</div>
     	</center>
