@@ -10,23 +10,24 @@
     	<center>
     		<div class="col form-box">
     			<h1>Sign Up</h1><hr>
-		        <form action="" method="post" class="singup-auth">
+		        <form action="{% url 'interface:dashboard' %}" method="post" class="singup-auth" novalidate>
+                    {% csrf_token %}
                     <label for="fname">First Name: </label>
-                    <input type="text" name="fname" class="input-field" placeholder=" Elon">
+                    <input type="text" id="fname" name="fname" class="input-field" placeholder=" Elon">
 
                     <label for="lname">Last Name:</label>
-                    <input type="text" name="lname" class="input-field" placeholder=" Musk">
+                    <input type="text" id="lname" name="lname" class="input-field" placeholder=" Musk">
 
                     <label for="uname">Username:*</label>
-                    <input type="text" name="" class="input-field" placeholder=" 3l0nmu5k">
+                    <input type="text" id="uname" name="uname" class="input-field" placeholder=" 3l0nmu5k">
 
-                    <label for="passwd">Password:</label>
-                    <input type="password" name="passwd" class="input-field" placeholder=" Enter a strong password.">
+                    <label for="passwd">Password:*</label>
+                    <input type="password" id="passwd" name="passwd" class="input-field" placeholder=" Enter a strong password.">
 
                     <label for="phnum">Phone No:*</label>
-                    <input type="text" name="" class="input-field" placeholder=" 10-digit phone number">
+                    <input type="text" id="phnum" name="phnum" class="input-field" placeholder=" 10-digit phone number">
+                    <button type="submit" class="btn btn-success">Sign Up</button><br>
     		    </form>
-                <button type="submit" class="btn btn-success">Login</button><br>
                 <strong>Or signup with</strong><br>
                 <div>
                     <button type="submit" class="btn btn-danger">Google</button>
