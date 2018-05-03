@@ -1,18 +1,24 @@
 from django.shortcuts import render
 from .forms import ContactForm
-# from . import models
+from . import models
 import logging
 
-logging.basicConfig(filename='/home/mohit/Documents/git_repos/Chatting_web_app/log.txt', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename='/home/mohit/Documents/git_repos/Chatting_web_app/log.txt',
+                    level=logging.DEBUG,
+                    filemode='w')
 logger = logging.getLogger()
 logger.debug('#logging starts!')
 
 
 def login_auth(*args):
-    pass
+    logger.debug(type(models.User.objects.get(username__exact='mohit_negi')))
+    # legit = models.User.objects.get(username__exact=args[1])
+    return args
+
 
 def registration(**kwargs):
-    pass
+    return kwargs
+
 
 def dashboard(request):
     logger.debug("inside dashboard")
@@ -21,18 +27,19 @@ def dashboard(request):
     if request.method == 'POST':
         logger.debug("bkl")
         uname = request.POST['uname']
-        context = {'uname': uname, 'flag': 0}
+        context = {'uname': uname}
 
         passwd = request.POST['passwd']
         phnum = request.POST.get('phnum', 0)
 
         if phnum:
             #  sign up in progress
+            context['flag'] = 0
             fname = request.POST.get('fname', 0)
             lname = request.POST.get('lname', 0)
-            email = request.POST.get('email', 0)
-            auth = registration({'fname':fname, 'lname':lname, 'uname':uname, 'passwd':passwd, 'phnum':phnum})
+            auth = registration(fname=fname, lname=lname, uname=uname, passwd=passwd, phnum=phnum)
         else:
+            # login in progress
             auth = login_auth((uname, passwd))
 
         if auth:
@@ -40,8 +47,10 @@ def dashboard(request):
             pass
         else:
             # resend authentication
-            pass
-
+            if context['flag']:
+                return render(request, 'interface/login.html')
+            else:
+                return render(request, 'interface/signup.html')
     return render(request, 'interface/index.html', context)
 
 
