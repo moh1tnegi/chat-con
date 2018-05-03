@@ -8,7 +8,7 @@
 {% block div %}
     <div class="container text-center form-div">
         <center>
-            <div class="col form-box">
+            <div class="col form-box" style="height:380px;">
                 <h1>Log In</h1><hr><br>
                 <form action="{% url 'interface:dashboard' %}" method="post" novalidate>
                     {% csrf_token %}
@@ -24,11 +24,6 @@
                     <input class="input-field" type="password" name="passwd" id="password" placeholder=" ********">
                     <button type="submit" class="btn btn-success">Login</button><br>
                 </form><br>
-                <strong>Or login with</strong><br>
-                <div style="margin-top: 10px;">
-                    <button type="submit" class="btn btn-danger">Google</button>
-                    <button type="submit" class="btn btn-info">Facebook</button>
-                </div>
                 <hr>
                 <a href="{% url 'interface:signup' %}">Create a new account</a> | <a href="#">Forgot Password?</a>
             </div>
