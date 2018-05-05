@@ -4,7 +4,7 @@ body {
 
 .navbar {
     padding: 15px 0px;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.7);
 	transition: all 0.6s ease-out;
 }
 
@@ -20,11 +20,15 @@ body {
 	padding-left: 30px;
 }
 
-/*.verti-sep {
-	height: 30px;
-	margin-top: 6px;
-	border-left: 1px solid #000000;
-}*/
+a.nav-link:hover {
+    background-color: #2f4f4f;
+    border-radius: 5px;
+}
+
+a.nav-link:active {
+    background-color: grey;
+    border-radius: 5px;
+}
 
 .page-footer.font-small {
     background: green;
