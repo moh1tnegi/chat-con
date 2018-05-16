@@ -9,7 +9,7 @@ body {
 }
 
 .opaq-nav {
-	background-color: #6b8e23;
+	background-color: currentColor;
 }
 
 .navbar-brand {
@@ -26,7 +26,7 @@ a.nav-link:hover {
 }
 
 a.nav-link:active {
-    background-color: grey;
+    background-color: #808080;
     border-radius: 5px;
 }
 

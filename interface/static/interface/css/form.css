@@ -11,12 +11,11 @@ hr {
 }
 
 .form-div {
-	padding-top: 100px;
+	padding-top: 130px;
 }
 
 .form-box {
 	padding: 25px;
-	height: 450px;
 	width: 400px;
 	background-color: snow;
 	border-radius: 20px;
@@ -32,4 +31,9 @@ label {
 	border: 1px solid #808080;
 	color: #000;
 	border-radius: 10px;
+}
+
+.signup-auth {
+    width:300px;
+    margin-bottom: 4px;
 }
