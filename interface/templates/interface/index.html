@@ -8,11 +8,75 @@
 {% block div %}
 	<div class="parallax">
 		<p>
-			<button class="btn">Getting started</button>
+            {% if user_session %}
+                <span class="howdy-user">Welcome {{user_session}}!</span>
+            {% else %}
+			<a class="btn" href="{% url 'interface:login' %}">Getting started</a>
+            {% endif %}
 		</p>
 	</div>
-	<div class="dash-board">
-		<div class="row">
-		</div>
-	</div>
+    {% if user_session %}
+        <div class="container-fluid cont-fl-custom-bg">
+            <div class="row" style="height: 36em;">
+                <div class="col-md-3" style="overflow-y: auto; padding-top: 20px;">
+                    <form action="" class="form-inline text-center">
+                        <input type="text" class="form-control col-md-8" id="search-box" placeholder="Search a username" style="border-radius: 4px 0 0 4px;">
+                        <button class="form-btn" type="submit"><strong>Search</strong></button>
+                    </form>
+                    <ul class="list-group">
+                        {% for contact in contacts %}
+                            <li class="list-group-item">
+                                <span class="badge">
+                                    <a href="#" class="list-group-item list-group-item-info">{{ contact }}</a>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-7 msg-box-border">
+                    {% if contact_name %}
+                        <div class="contact-navbar text-center">
+                            <strong>{{ contact_name }}</strong> <span>{{ contact_status }}</span>
+                        </div>
+                        <div class="container">
+                            <div style="height: 30em;">
+                                {% for message in chat_content %}
+                                    {% if received %}
+                                        <span class="message-content">{{ msg_received }}&nbsp;&nbsp;{{ timestamp_received }}</span>
+                                    {% else %}
+                                        <span class="message-content">{{ msg_sent }}&nbsp;&nbsp;{{ timestamp_sent }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <form action="#" style="position:relative;">
+                                <input type="text" placeholder="Enter your message here!" style="width:85%; border-radius: 4px; padding: 5px;">
+                                <button type="submit" name="now-message" class="form-btn">Send</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="no-user-selection"></div>
+                    {% endif %}
+                </div>
+                <div class="col-md-2" style="margin-top: 20px;">
+                    <ul class="list-group text-center"><b>
+                        <li class="list-group-item blur-bg">
+                            <a href="#" class="acnt-changes">Change your firstname</a>
+                        </li>
+                        <li class="list-group-item blur-bg">
+                            <a href="#" class="acnt-changes">Change your lastname</a>
+                        </li>
+                        <li class="list-group-item blur-bg">
+                            <a href="#" class="acnt-changes">Change your username</a>
+                        </li>
+                        <li class="list-group-item blur-bg">
+                            <a href="#" class="acnt-changes">Change your phone number</a>
+                        </li>
+                        <li class="list-group-item blur-bg">
+                            <a href="#" class="acnt-changes">Change your password</a>
+                        </li></b>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

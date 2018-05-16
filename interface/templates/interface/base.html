@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=New+Rocker" rel="stylesheet" type="text/css">
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<title>Chat-App | Dashboard</title>
-	{% load static %}
-	<link rel="stylesheet" href="{% static 'interface/css/base.css' %}">
+    <title>Chat-App | Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'interface/css/base.css' %}">
     {% block link %}
     {% endblock %}
-	<link rel="shortcut icon" href="{% static 'interface/images/logo.jpeg' %}">
+    <link rel="shortcut icon" href="{% static 'interface/images/logo.jpeg' %}">
     <script src="{% static 'interface/js/opaq-nav.js' %}"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark" role="navigation">
         <div class="container">
             <div class="col-md-2">
-                <a class="navbar-brand" href="{% url 'interface:dashboard' %}">Chat-app</a>
+                <a class="navbar-brand" href="{% url 'interface:dashboard' %}" style="color:#55FF55;font-weight: bolder;"   >Chat-app</a>
                 <button class="pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -28,28 +28,33 @@
                 <div class="col-md-7 offset-lg-1">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'interface:dashboard' %}">Home</a>
+                            <a class="nav-link" href="{% url 'interface:dashboard' %}" style="color:#55FF55;font-weight: bolder;">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'interface:contact' %}">Contact Us</a>
+                            <a class="nav-link" href="{% url 'interface:contact' %}" style="color:#55FF55;font-weight: bolder;">Contact Us</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">About Us</a>
+                            <a class="nav-link" href="#" style="color:#55FF55;font-weight: bolder;">About Us</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="https://github.com/m0hitNegi/Chatting_web_app/issues" target="_blank">Report Issues</a>
+                            <a class="nav-link" href="https://github.com/m0hitnegi/Chatting_web_app/issues" target="_blank" style="color:#55FF55;font-weight: bolder;">Report Issues</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-3 offset-lg-1">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a href="{% url 'interface:login' %}" class="nav-link">Login</a>
+                    {% if user_session %}
+                        <li class="nav-item active offset-md-5">
+                            <a href="{% url 'interface:logout' %}" class="nav-link" style="color:#55FF55;font-weight: bolder;">Log out</a>
                         </li>
-                        <!-- <li class="verti-sep"></li> -->
+                    {% else %}
                         <li class="nav-item active">
-                            <a href="{% url 'interface:signup' %}" class="nav-link">Signup</a>
+                            <a href="{% url 'interface:login' %}" class="nav-link" style="color:#55FF55;font-weight: bolder;">Login</a>
                         </li>
+                        <li class="nav-item active">
+                            <a href="{% url 'interface:signup' %}" class="nav-link" style="color:#55FF55;font-weight: bolder;">Signup</a>
+                        </li>
+                    {% endif %}
                     </ul>
                 </div>
             </div>
@@ -60,5 +65,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block script %}
+    {% endblock %}
 </body>
 </html>
