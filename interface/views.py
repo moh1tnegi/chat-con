@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
+from django.utils.safestring import mark_safe
 
 from .forms import ContactForm
 from . import models
 from .phNumVeriVald import legit_ph_num
 
+import json
 import re
 import logging
 
@@ -20,7 +22,7 @@ sentinel = 1  # is it login or signup request?
 def login_auth(*args):
     try:
         models.User.objects.get(pk=args[0])
-        pas = models.User.objects.filter(password=args[1])
+        pas = models.User.objects.filter(pk=args[0], password=args[1])
         return 1 if pas else 0
     except ObjectDoesNotExist:
         return 0
@@ -63,9 +65,12 @@ def registration(**kwargs):
 def dashboard(request):
     try:
         uname = models.User.objects.get(pk=request.session.get('username', 'mohit_negi'))
-        models.User.objects.get(password__exact=request.session.get('usr_pass', 0))
+        models.User.objects.get(username__exact=uname, password__exact=request.session.get('usr_pass', 0))
         request.session['session_up'] = True
-        return render(request, 'interface/index.html', {'user_session': uname})
+        return render(request, 'interface/index.html', {
+            'user_session': uname, 
+            'contacts': ['Mohit', ]
+            })
     except ObjectDoesNotExist:
         pass
 
@@ -79,11 +84,7 @@ def dashboard(request):
             #  sign up in progress
             fname = request.POST.get('fname', 0)
             lname = request.POST.get('lname', 0)
-            auth, error = registration(fname=fname,
-                                        lname=lname,
-                                        uname=uname,
-                                        passwd=passwd,
-                                        phnum=phnum)
+            auth, error = registration(fname=fname, lname=lname, uname=uname, passwd=passwd, phnum=phnum)
         else:
             # login in progress
             auth = login_auth(uname, passwd)
@@ -128,6 +129,7 @@ def log_out(request):
     del request.session['usr_pass']
     request.session['session_up'] = False
     return redirect('http://127.0.0.1:8000')
+
 
 def contact_form(request):
     if request.method == 'POST':
