@@ -1,6 +1,6 @@
-from .consumers import *
+from . import consumers
 from django.conf.urls import url
 
 ws_urlpatterns = [
-	url(r'^contact_us/$', here),
+    url(r'^$', consumers.ChatConsumer),
 ]
