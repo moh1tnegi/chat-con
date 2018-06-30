@@ -78,7 +78,7 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
-ASGI_APPLICATION = 'Chatting_web_app.routing.asgi_apps'
+ASGI_APPLICATION = 'Chatting_web_app.routing.application'
 
 CHANNEL_LAYERS = {
     'default': {
