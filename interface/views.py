@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
-from django.utils.safestring import mark_safe
 
 from .forms import ContactForm
 from . import models
@@ -11,7 +10,7 @@ import json
 import re
 import logging
 
-logging.basicConfig(filename='/home/mohit/Documents/git_repos/Chatting_web_app/log.txt',
+logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
                     level=logging.DEBUG,
                     filemode='w')
 logger = logging.getLogger()
@@ -21,9 +20,13 @@ sentinel = 1  # is it login or signup request?
 
 def login_auth(*args):
     try:
-        models.User.objects.get(pk=args[0])
+        user = models.User.objects.get(pk=args[0])
         pas = models.User.objects.filter(pk=args[0], password=args[1])
-        return 1 if pas else 0
+        if pas:
+            user.is_online = True
+            user.save()
+            return 1
+        else: return 0
     except ObjectDoesNotExist:
         return 0
 
@@ -52,6 +55,7 @@ def registration(**kwargs):
             user.username = unm
             user.password = pwd
             user.phn_numb = pnm
+            user.is_online = True
             user.save()
         except IntegrityError:
             yield from(0, {'error': "Phone number already exist!"})
@@ -63,13 +67,15 @@ def registration(**kwargs):
 
 
 def dashboard(request):
+    online_users = models.User.objects.filter(is_online__exact=True)
     try:
-        uname = models.User.objects.get(pk=request.session.get('username', 'mohit_negi'))
-        models.User.objects.get(username__exact=uname, password__exact=request.session.get('usr_pass', 0))
-        request.session['session_up'] = True
+        uname = models.User.objects.get(username__exact=request.session.get('username'), password__exact=request.session.get('usr_pass', 0))
+        uname.is_online = True
+        uname.save()
+        logger.debug(online_users)
         return render(request, 'interface/index.html', {
             'user_session': uname, 
-            'contacts': ['Mohit', ]
+            'online': online_users,
             })
     except ObjectDoesNotExist:
         pass
@@ -94,7 +100,10 @@ def dashboard(request):
             request.session['username'] = uname
             request.session['usr_pass'] = passwd
             request.session['session_up'] = True
-            return render(request, 'interface/index.html', {'user_session': uname})
+            return render(request, 'interface/index.html', {
+                'user_session': uname,
+                'online': online_users,
+            })
 
         else:
             # resend form
@@ -125,6 +134,9 @@ def signup_form(request):
 
 
 def log_out(request):
+    u = models.User.objects.get(username__exact=request.session['username'])
+    u.is_online = False
+    u.save()
     del request.session['username']
     del request.session['usr_pass']
     request.session['session_up'] = False

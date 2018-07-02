@@ -9,56 +9,59 @@
 	<div class="parallax">
 		<p>
             {% if user_session %}
-                <span class="howdy-user">Welcome {{user_session}}!</span>
+                <span id="howdy-user">Welcome {{user_session}}!</span>
             {% else %}
-			<a class="btn" href="{% url 'interface:login' %}">Getting started</a>
+                <a class="btn" href="{% url 'interface:login' %}">Getting started</a>
             {% endif %}
 		</p>
-	</div>
+    </div>
     {% if user_session %}
+        <div class="text-center">
+            <i class="fa fa-chevron-circle-down" id="down-button">
+                <a role="button"></a>
+            </i>
+        </div>
         <div class="container-fluid cont-fl-custom-bg">
             <div class="row" style="height: 36em;">
                 <div class="col-md-3" style="overflow-y: auto; padding-top: 20px;">
-                    <form action="" class="form-inline text-center">
+                    <!-- <form action="" class="form-inline text-center">
                         <input type="text" class="form-control col-md-8" id="search-box" placeholder="Search a username" style="border-radius: 4px 0 0 4px;">
                         <button class="form-btn" type="submit"><strong>Search</strong></button>
-                    </form>
-                    <ul class="list-group">
-                        {% for contact in contacts %}
-                            <li class="list-group-item">
-                                <span class="badge">
-                                    <a href="#" class="list-group-item list-group-item-info">{{ contact }}</a>
-                                </span>
-                            </li>
+                    </form> -->
+                    <ul class="list-group text-center">
+                        <li class="list-group-item list-group-item-success"><strong>Online</strong></li>
+                    </ul>
+                    <ul class="list-group text-center" id="online_users" style="overflow: auto;">
+                        {% for usr in online %}
+                            <li class="list-group-item">{{ usr }}</li>
                         {% endfor %}
                     </ul>
                 </div>
+               
                 <div class="col-md-7 msg-box-border">
-                    {% if contact_name %}
-                        <div class="contact-navbar text-center">
-                            <strong>{{ contact_name }}</strong> <span>{{ contact_status }}</span>
+                    <div class="contact-navbar text-center">
+                        <strong>{{ contact_name }}</strong> <span>{{ contact_status }}</span>
+                    </div>
+                    <div class="container">
+                        <div style="height: 33em;">
+                            {% for message in chat_content %}
+                                {% if received %}
+                                    <span class="message-content">{{ msg_received }}&nbsp;&nbsp;{{ timestamp_received }}</span>
+                                {% else %}
+                                    <span class="message-content">{{ msg_sent }}&nbsp;&nbsp;{{ timestamp_sent }}</span>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        <div class="container">
-                            <div style="height: 30em;">
-                                {% for message in chat_content %}
-                                    {% if received %}
-                                        <span class="message-content">{{ msg_received }}&nbsp;&nbsp;{{ timestamp_received }}</span>
-                                    {% else %}
-                                        <span class="message-content">{{ msg_sent }}&nbsp;&nbsp;{{ timestamp_sent }}</span>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <form action="#" style="position:relative;">
-                                <input type="text" placeholder="Enter your message here!" style="width:85%; border-radius: 4px; padding: 5px;">
-                                <button type="submit" name="now-message" class="form-btn">Send</button>
-                            </form>
-                        </div>
-                    {% else %}
-                        <div class="no-user-selection"></div>
-                    {% endif %}
+                        <form action="#" style="position:relative;">
+                            <input type="text" placeholder="Enter your message here!" style="width:85%; border-radius: 4px; padding: 5px;">
+                            <button type="submit" name="now-message" class="form-btn">Send</button>
+                        </form>
+                    </div>
+                    <div class="no-user-selection"></div>
                 </div>
+                <div class="no-user-selection"></div>
                 <div class="col-md-2" style="margin-top: 20px;">
-                    <ul class="list-group text-center"><b>
+                    <ul class="list-group text-center">
                         <li class="list-group-item blur-bg">
                             <a href="#" class="acnt-changes">Change your firstname</a>
                         </li>
@@ -73,10 +76,74 @@
                         </li>
                         <li class="list-group-item blur-bg">
                             <a href="#" class="acnt-changes">Change your password</a>
-                        </li></b>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    var roomName = 'online';
+    var user_online = "{{ user_session }}" ;
+    if (user_online) {
+        var chatSocket = new WebSocket(
+            'ws://' + window.location.host);
+        
+        chatSocket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var uname = data['uname'];
+
+            if (data['online']) {
+                var sanity_check = {uname: 1};
+                var usr_arr = [uname];
+
+                $('#online_users').children().each(function() {
+                    usr_arr.push(this.innerHTML);
+                });
+                $('#online_users').empty();
+
+                for(var i = 0; i < usr_arr.length; i++) {
+                    if(sanity_check[usr_arr[i]]) continue;
+                    sanity_check[usr_arr[i]] = 1;
+
+                    $('#online_users').append(
+                        $('<li>').attr('class', 'list-group-item').text(usr_arr[i])
+                    );
+                }
+            }
+            else {
+                var sanity_check = {};
+                var usr_arr = [];
+
+                $('#online_users').children().each(function() {
+                    if(uname != this.innerHTML)
+                        usr_arr.push(this.innerHTML);
+                });
+                $('#online_users').empty();
+
+                for(var i = 0; i < usr_arr.length; i++) {
+                    if(sanity_check[usr_arr[i]]) continue;
+                    sanity_check[usr_arr[i]] = 1;
+
+                    $('#online_users').append(
+                        $('<li>').attr('class', 'list-group-item').text(usr_arr[i])
+                    );
+                }
+            }
+        };
+        chatSocket.onopen = function(e) {
+            chatSocket.send(JSON.stringify({
+                'user_online' : user_online
+            }));
+        }
+
+        chatSocket.onclose = function(e) {
+            console.error('Achanak band ho gya bhai!!!');
+        };
+    }
+    
+</script>
 {% endblock %}

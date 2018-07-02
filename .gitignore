@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# debug logs
+log.txt
+dump.rdb

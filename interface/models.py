@@ -7,6 +7,7 @@ class User(models.Model):
     username = models.CharField(max_length=32, primary_key=True)
     phn_numb = models.CharField(max_length=13, unique=True)
     password = models.CharField(max_length=100)
+    is_online = models.BooleanField(default=False)
     objects = models.Manager()
 
     def __str__(self):

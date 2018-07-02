@@ -1,6 +1,6 @@
 .parallax {
 	background-image: url("/static/interface/images/parallax-bg.jpg");
-	height: 650px;
+	height: 100vh;
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -25,7 +25,7 @@
 	border: 2px solid #55FF55;
 }
 
-.howdy-user {
+#howdy-user {
 	background-color: rgba(0, 0, 0, 0.7);
 	font-family: New Rocker, cursive;
 	font-weight: 600;
@@ -35,12 +35,25 @@
     border-radius: 4px;
 }
 
+#down-button {
+	font-size:35px;
+	color:#55FF55;
+	margin-top: -120px;
+	position: fixed;
+	display: none;
+}
+
+#down-button:hover {
+	font-size: 38px;
+}
+
 .msg-box-border {
-	border-width:0 5px 0 5px;
+	border-width:0 5px 3px 5px;
 	border-style: groove;
 	border-color: #fff;
 	overflow-y: auto;
 	padding-top: 20px;
+	height: 37em;
 }
 
 .form-btn {
@@ -56,6 +69,7 @@
     background-position: center;
     border: 2px groove white;
     border-radius: 4px 4px 0 0;
+    height: 600px;
 }
 
 .blur-bg {
