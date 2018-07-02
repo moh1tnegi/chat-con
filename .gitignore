@@ -106,3 +106,6 @@ dump.rdb
 
 # pycharm crap
 .idea
+
+# local database
+db.sqlite3
