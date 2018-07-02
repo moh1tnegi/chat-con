@@ -103,3 +103,6 @@ ENV/
 # debug logs
 log.txt
 dump.rdb
+
+# pycharm crap
+.idea
