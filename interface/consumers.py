@@ -10,6 +10,7 @@ logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
 logger = logging.getLogger()
 logger.debug('#logging asssssszzzzzzz!')
 
+
 class ChatConsumer(AsyncWebsocketConsumer):
     
     def __init__(self, *args, **kwargs):
