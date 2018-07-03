@@ -8,13 +8,13 @@ from .phNumVeriVald import legit_ph_num
 
 import json
 import re
-import logging
+# import logging
 
-logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
-                    level=logging.DEBUG,
-                    filemode='w')
-logger = logging.getLogger()
-logger.debug('#logging starts!')
+# logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
+#                     level=logging.DEBUG,
+#                     filemode='w')
+# logger = logging.getLogger()
+# logger.debug('#logging starts!')
 sentinel = 1  # is it login or signup request?
 
 
@@ -72,7 +72,6 @@ def dashboard(request):
         uname = models.User.objects.get(username__exact=request.session.get('username'), password__exact=request.session.get('usr_pass', 0))
         uname.is_online = True
         uname.save()
-        logger.debug(online_users)
         return render(request, 'interface/index.html', {
             'user_session': uname, 
             'online': online_users,

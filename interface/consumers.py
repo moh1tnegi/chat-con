@@ -2,13 +2,13 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from . import models
 import json
 
-import logging
+# import logging
 
-logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
-                    level=logging.DEBUG,
-                    filemode='w')
-logger = logging.getLogger()
-logger.debug('#logging asssssszzzzzzz!')
+# logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
+#                     level=logging.DEBUG,
+#                     filemode='w')
+# logger = logging.getLogger()
+# logger.debug('#logging asssssszzzzzzz!')
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
