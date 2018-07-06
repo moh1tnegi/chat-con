@@ -4,7 +4,6 @@ from django.db import IntegrityError
 
 from .forms import ContactForm
 from . import models
-from .phNumVeriVald import legit_ph_num
 
 import json
 import re
@@ -36,7 +35,7 @@ def registration(**kwargs):
     pwd = kwargs.get('passwd', 0)
     pnm = kwargs.get('phnum', 0)
 
-    if unm and pwd and pnm and legit_ph_num(pnm):
+    if unm and pwd and pnm:
         try:
             models.User.objects.get(pk=unm)
             yield from (0, {'error': "Username already taken!"})
