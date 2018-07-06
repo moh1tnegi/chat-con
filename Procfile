@@ -1,1 +1,2 @@
-web: daphne interface.asgi:channel_layer --port $PORT --bind 0.0.0.0 -v2
+web: daphne chat-con.asgi:application --port $port --bind 0.0.0.0
+worker: python runner.py
