@@ -8,13 +8,13 @@ from .phNumVeriVald import legit_ph_num
 
 import json
 import re
-# import logging
+import logging
 
-# logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/log.txt',
-#                     level=logging.DEBUG,
-#                     filemode='w')
-# logger = logging.getLogger()
-# logger.debug('#logging starts!')
+logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/debug.log',
+                    level=logging.DEBUG,
+                    filemode='w')
+logger = logging.getLogger()
+logger.debug('#logging starts!')
 sentinel = 1  # is it login or signup request?
 
 
@@ -67,13 +67,19 @@ def registration(**kwargs):
 
 
 def dashboard(request):
-    online_users = models.User.objects.filter(is_online__exact=True)
+    _users_ = models.User.objects.filter(is_online__exact=True)
+    online_users = []
+
+    for usr in _users_:
+        online_users.append(usr.username + ' - (' + usr.firstname + ' ' + usr.lastname + ')')
+
     try:
         uname = models.User.objects.get(username__exact=request.session.get('username'), password__exact=request.session.get('usr_pass', 0))
         uname.is_online = True
         uname.save()
         return render(request, 'interface/index.html', {
-            'user_session': uname, 
+            'user_session': uname,
+            'full_name': uname.firstname + ' ' + uname.lastname,
             'online': online_users,
             })
     except ObjectDoesNotExist:
@@ -99,8 +105,10 @@ def dashboard(request):
             request.session['username'] = uname
             request.session['usr_pass'] = passwd
             request.session['session_up'] = True
+            U = models.User.objects.get(pk=uname)
             return render(request, 'interface/index.html', {
                 'user_session': uname,
+                'full_name': U.firstname + ' ' + U.lastname,
                 'online': online_users,
             })
 
@@ -149,4 +157,4 @@ def contact_form(request):
             pass  # does nothing, just trigger the validation
     else:
         form = ContactForm()
-    return render(request, 'interface/contact.html', {'form': form})
+    return render(request, 'interface/contact.html', {'form': form, 'user_session': request.session.get('username', 0)})
