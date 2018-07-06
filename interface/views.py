@@ -8,13 +8,13 @@ from .phNumVeriVald import legit_ph_num
 
 import json
 import re
-import logging
+# import logging
 
-logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/debug.log',
-                    level=logging.DEBUG,
-                    filemode='w')
-logger = logging.getLogger()
-logger.debug('#logging starts!')
+# logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/debug.log',
+#                     level=logging.DEBUG,
+#                     filemode='w')
+# logger = logging.getLogger()
+# logger.debug('#logging starts!')
 sentinel = 1  # is it login or signup request?
 
 
