@@ -28,4 +28,6 @@ $(document).ready(function() {
 	    $('.navbar').addClass('opaq-nav');
 	    $(this).fadeOut();
 	});
+
+	// $('textarea').scrollTop = $('textarea').scrollHeight;
 });
