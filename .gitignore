@@ -100,12 +100,9 @@ ENV/
 # mypy
 .mypy_cache/
 
-# debug logs
-log.txt
 dump.rdb
 
 # pycharm crap
 .idea
 
-# local database
 db.sqlite3
