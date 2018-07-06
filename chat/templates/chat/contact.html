@@ -1,0 +1,11 @@
+{% extends 'chat/base.html' %}
+
+{% block div %}
+	<div class="container" style="padding-top: 60px;">
+		<form method="post" novalidate>
+		  {% csrf_token %}
+		  {{ form }}
+		  <button type="submit">Submit</button>
+		</form>
+	</div>
+{% endblock %}
