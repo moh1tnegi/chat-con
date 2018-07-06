@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=New+Rocker" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Chat-App | Dashboard</title>
+    <title>Chat-con | Dashboard</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'interface/css/base.css' %}">
     {% block link %}
     {% endblock %}
-    <link rel="shortcut icon" href="{% static 'interface/images/logo.jpeg' %}">
-    <script src="{% static 'interface/js/opaq-nav.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'interface/images/logo.png' %}">
+    <script src="{% static 'interface/js/main.js' %}"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark" role="navigation">
         <div class="container">
             <div class="col-md-2">
-                <a class="navbar-brand" href="{% url 'interface:dashboard' %}" style="color:#55FF55;font-weight: bolder;"   >Chat-app</a>
+                <a class="navbar-brand" href="{% url 'interface:dashboard' %}" style="color:#55FF55;font-weight: bolder;"   >Chat-con</a>
                 <button class="pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
                     <span class="navbar-toggler-icon"></span>
                 </button>
