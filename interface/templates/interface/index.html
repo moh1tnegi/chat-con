@@ -9,9 +9,9 @@
 	<div class="parallax">
 		<p>
             {% if user_session %}
-                <span id="howdy-user">Welcome {{user_session}}!</span>
+                <span class="round-corn" id="howdy-user">Welcome {{full_name}}!</span>
             {% else %}
-                <a class="btn" href="{% url 'interface:login' %}">Getting started</a>
+                <a class="btn" href="{% url 'interface:signup' %}">Getting started</a>
             {% endif %}
 		</p>
     </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="container-fluid cont-fl-custom-bg">
             <div class="row" style="height: 36em;">
-                <div class="col-md-3" style="overflow-y: auto; padding-top: 20px;">
+                <div class="col-md-3" style="height:30em;overflow-y: auto; padding-top: 20px;">
                     <!-- <form action="" class="form-inline text-center">
                         <input type="text" class="form-control col-md-8" id="search-box" placeholder="Search a username" style="border-radius: 4px 0 0 4px;">
                         <button class="form-btn" type="submit"><strong>Search</strong></button>
@@ -33,50 +33,46 @@
                     </ul>
                     <ul class="list-group text-center" id="online_users" style="overflow: auto;">
                         {% for usr in online %}
-                            <li class="list-group-item">{{ usr }}</li>
+                            <li class="list-group-item list-group-item-primary"><button type="button" role="button" class="clickable-on round-corn" onclick="start_conv(this)">{{ usr }}</li>
                         {% endfor %}
                     </ul>
                 </div>
                
                 <div class="col-md-7 msg-box-border">
-                    <div class="contact-navbar text-center">
-                        <strong>{{ contact_name }}</strong> <span>{{ contact_status }}</span>
-                    </div>
-                    <div class="container">
-                        <div style="height: 33em;">
-                            {% for message in chat_content %}
-                                {% if received %}
-                                    <span class="message-content">{{ msg_received }}&nbsp;&nbsp;{{ timestamp_received }}</span>
-                                {% else %}
-                                    <span class="message-content">{{ msg_sent }}&nbsp;&nbsp;{{ timestamp_sent }}</span>
-                                {% endif %}
-                            {% endfor %}
+                    <div  id="user-selected" style="display:none;">
+                        <div class="contact-navbar text-center round-corn">
+                            <h4 id="current_name"></h4>
                         </div>
-                        <form action="#" style="position:relative;">
-                            <input type="text" placeholder="Enter your message here!" style="width:85%; border-radius: 4px; padding: 5px;">
-                            <button type="submit" name="now-message" class="form-btn">Send</button>
-                        </form>
+                        <div class="container">
+                            <div style="height: 30em;">
+                                <span id="add_new_area"></span>
+                                <input type="text" class="round-corn" id="msg-input" placeholder="Enter your message here!">
+                                <input type="button" name="now-message" class="form-btn" id="subm-btn" value="Send"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="no-user-selection"></div>
+                    <div id="no-user-selection">
+                    </div>
                 </div>
-                <div class="no-user-selection"></div>
                 <div class="col-md-2" style="margin-top: 20px;">
-                    <ul class="list-group text-center">
-                        <li class="list-group-item blur-bg">
+                    <ul class="list-group text-center" id="new-msgs">
+                        <!-- <li class="list-group-item blur-bg round-corn">
                             <a href="#" class="acnt-changes">Change your firstname</a>
                         </li>
-                        <li class="list-group-item blur-bg">
+                        <li class="list-group-item blur-bg round-corn">
                             <a href="#" class="acnt-changes">Change your lastname</a>
                         </li>
-                        <li class="list-group-item blur-bg">
+                        <li class="list-group-item blur-bg round-corn">
                             <a href="#" class="acnt-changes">Change your username</a>
                         </li>
-                        <li class="list-group-item blur-bg">
+                        <li class="list-group-item blur-bg round-corn">
                             <a href="#" class="acnt-changes">Change your phone number</a>
                         </li>
-                        <li class="list-group-item blur-bg">
+                        <li class="list-group-item blur-bg round-corn">
                             <a href="#" class="acnt-changes">Change your password</a>
-                        </li>
+                        </li> -->
+                        <li class="list-group-item list-group-item-success" id="show-new" style="display: none;"><strong>New Message(s)</strong></li>
+                        <li class="list-group-item list-group-item-danger" id="no-new">No new message! :(</li>
                     </ul>
                 </div>
             </div>
@@ -87,63 +83,173 @@
 {% block script %}
 <script type="text/javascript">
     var roomName = 'online';
-    var user_online = "{{ user_session }}" ;
+    var user_online = "{{ user_session }}";
+    var full_name = "{{ full_name }}";
+
     if (user_online) {
-        var chatSocket = new WebSocket(
-            'ws://' + window.location.host);
+        var onlineSocket = new WebSocket('ws://' + window.location.host);
+        document.cookie = "usrname=" + user_online;
         
-        chatSocket.onmessage = function(e) {
+        onlineSocket.onmessage = function(e) {
             var data = JSON.parse(e.data);
-            var uname = data['uname'];
+            var uname = data['uname'] + ' - (' + data['full_name'] + ')';
+            if (data['uname']) {
+                if (data['online']) {
+                    var sanity_check = {uname: 1};
+                    var usr_arr = [uname];
 
-            if (data['online']) {
-                var sanity_check = {uname: 1};
-                var usr_arr = [uname];
+                    $('#online_users').children().each(function() {
+                        usr_arr.push($(this).find('button').text());
+                    });
 
-                $('#online_users').children().each(function() {
-                    usr_arr.push(this.innerHTML);
-                });
-                $('#online_users').empty();
+                    $('#online_users').empty();
+                    for(var i = 0; i < usr_arr.length; i++) {
+                        if(sanity_check[usr_arr[i]]) continue;
+                        sanity_check[usr_arr[i]] = 1;
 
-                for(var i = 0; i < usr_arr.length; i++) {
-                    if(sanity_check[usr_arr[i]]) continue;
-                    sanity_check[usr_arr[i]] = 1;
+                        $('#online_users').append($('<li>').attr(
+                            'class', 'list-group-item list-group-item-primary'
+                            ).append($('<button>').attr({
+                                    type: 'button',
+                                    class: 'clickable-on round-corn',
+                                    role: 'button',
+                                    onclick: 'start_conv(this)'
+                                }).text(usr_arr[i])
+                            )
+                        );
+                    }
+                }
+                else {
+                    var sanity_check = {};
+                    var usr_arr = [];
 
-                    $('#online_users').append(
-                        $('<li>').attr('class', 'list-group-item').text(usr_arr[i])
-                    );
+                    $('#online_users').children().each(function() {
+                        var __a = $(this).find('button').text();
+                        if(uname != __a) usr_arr.push(__a);
+                    });
+
+                    $('#online_users').empty();
+                    for(var i = 0; i < usr_arr.length; i++) {
+                        if(sanity_check[usr_arr[i]]) continue;
+                        sanity_check[usr_arr[i]] = 1;
+
+                        $('#online_users').append($('<li>').attr(
+                            'class', 'list-group-item list-group-item-primary'
+                            ).append($('<button>').attr({
+                                    type: 'button',
+                                    class: 'clickable-on round-corn',
+                                    role: 'button',
+                                    onclick: 'start_conv(this)'
+                                }).text(usr_arr[i])
+                            )
+                        );
+                    }
                 }
             }
             else {
-                var sanity_check = {};
-                var usr_arr = [];
+                var msg_from = data['from'];
+                var msg_to = data['to'];
+                var msg = data['txt_msg'];
 
-                $('#online_users').children().each(function() {
-                    if(uname != this.innerHTML)
-                        usr_arr.push(this.innerHTML);
-                });
-                $('#online_users').empty();
+                if (document.cookie.split('=')[2] === msg_to) {
+                    var chat_area = document.querySelector('#' + msg_from);
+                    if(!chat_area) {
+                        $('#add_new_area').append($('<textarea>').attr({
+                                id: msg_from,
+                                class: 'text-msg round-corn',
+                                disabled: true
+                            })
+                        );
+                        chat_area = document.querySelector('#' + msg_from);
+                    }
 
-                for(var i = 0; i < usr_arr.length; i++) {
-                    if(sanity_check[usr_arr[i]]) continue;
-                    sanity_check[usr_arr[i]] = 1;
+                    chat_area.value += msg_from + ': ';
+                    chat_area.value += msg + '\n\n';
+                    chat_area.scrollTop = chat_area.scrollHeight;
 
-                    $('#online_users').append(
-                        $('<li>').attr('class', 'list-group-item').text(usr_arr[i])
-                    );
+                    if (!$('#' + msg_from).is(':visible')) {
+                        if (!document.querySelector('#msgfrom-' + msg_from)) {
+                            $('#no-new').hide();
+                            $('#show-new').show();
+                            $('#new-msgs').append(
+                                $('<li>').append(
+                                    $('<button>').attr({
+                                        id: 'msgfrom-' + msg_from,
+                                        type: 'button',
+                                        class: 'clickable-on round-corn',
+                                        role: 'button',
+                                        onclick: 'start_conv(this)'
+                                    }).text(msg_from)
+                                ).attr('class', 'list-group-item')
+                            );
+                        }
+                    }
                 }
             }
         };
-        chatSocket.onopen = function(e) {
-            chatSocket.send(JSON.stringify({
-                'user_online' : user_online
+
+        onlineSocket.onopen = function(e) {
+            onlineSocket.send(JSON.stringify({
+                'user_online' : user_online,
+                'full_name' : full_name
             }));
         }
 
-        chatSocket.onclose = function(e) {
+        onlineSocket.onclose = function(e) {
+            alert('Something went wrong. Please refresh the page!');
             console.error('Achanak band ho gya bhai!!!');
         };
+
+        document.querySelector('#msg-input').onkeyup = function(key) {
+            if (key.keyCode === 13) {
+                document.querySelector('#subm-btn').click();
+            }
+        };
+
+        document.querySelector('#subm-btn').onclick = function(data) {
+            var to = document.querySelector('#current_name').innerHTML;
+            var text = document.querySelector('#msg-input');
+            var chat_area = document.querySelector('#' + to);
+            if (text.value.trim()) {
+                chat_area.value += 'You: ';
+                chat_area.value += text.value + '\n\n';
+                onlineSocket.send(JSON.stringify({
+                    'from': user_online,
+                    'to': to,
+                    'text': text.value
+                }));
+            }
+            text.value = '';
+            chat_area.scrollTop = chat_area.scrollHeight;
+        }
+
+        function start_conv(e) {
+            var name = $(e).text().split(' ')[0];
+            if(document.querySelector('#' + name)) {
+                $('.text-msg').hide();
+                $('#' + name).show();
+            }
+            else {
+                $('.text-msg').hide();
+                $('#add_new_area').append(
+                    $('<textarea>').attr({
+                        id: name,
+                        class: 'text-msg round-corn',
+                        disabled: true
+                    })).show();
+            }
+
+            $('#current_name').text(name);
+            $('#user-selected').show();
+            $('#msg-input').focus();
+            $('#no-user-selection').hide();
+            $('#msgfrom-' + name).parent().remove();
+            if($('#new-msgs').children().length < 3) {
+                $('#show-new').hide();
+                $('#no-new').show();
+            }
+        }
     }
-    
+
 </script>
 {% endblock %}
