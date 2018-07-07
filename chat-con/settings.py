@@ -62,10 +62,10 @@ WSGI_APPLICATION = 'chat-con.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chatcon',
+        'NAME': 'd230l8mhskmql0',
         'USER': 'mohit_negi',
         'PASSWORD': 'Pass123',
-        'HOST': 'localhost',
+        'HOST': 'ec2-54-83-3-101.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
