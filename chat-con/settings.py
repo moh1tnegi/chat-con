@@ -11,14 +11,16 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
-    'chat',
-    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_django',
+    'chat',
+    'channels',
 )
 
 MIDDLEWARE = [
@@ -29,6 +31,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'chat-con.urls'
@@ -44,6 +48,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -54,8 +61,12 @@ WSGI_APPLICATION = 'chat-con.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgres',
+        'NAME': 'pmywwapewcpkeq',
+        'USER': 'pmywwapewcpkeq',
+        'PASSWORD': 'e64432d1e75bf192d447e3b978b8ff53749e8870236e009825758d854c2afa5d',
+        'HOST': 'ec2-54-83-3-101.compute-1.amazonaws.com',
+        'PORT': 5432
     }
 }
 
@@ -90,3 +101,13 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = '6c3b57661dfb488a128b'
+SOCIAL_AUTH_GITHUB_SECRET = 'eccfb3991efc8ca3c0875f482cb464a6fcdf28ca'
