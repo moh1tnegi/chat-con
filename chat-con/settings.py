@@ -66,7 +66,7 @@ DATABASES = {
         'USER': 'mohit_negi',
         'PASSWORD': 'Pass123',
         'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '5432'
     }
 }
 
