@@ -4,7 +4,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'g$a=*u%*@-_hshzw@a46qn*aui(vdbghtdqk+oy@chw!jqkc4x'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -63,11 +63,11 @@ WSGI_APPLICATION = 'chat-con.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chatcon',  #'d230l8mhskmql0',
-        'USER': 'mohit_negi',  #'pmywwapewcpkeq',
-        'PASSWORD': 'Pass123',  #'e64432d1e75bf192d447e3b978b8ff53749e8870236e009825758d854c2afa5d',
-        'HOST': 'localhost',  #'ec2-54-83-3-101.compute-1.amazonaws.com',
-        'PORT': ''  #'5432'
+        'NAME': 'd230l8mhskmql0',
+        'USER': 'pmywwapewcpkeq',
+        'PASSWORD': 'e64432d1e75bf192d447e3b978b8ff53749e8870236e009825758d854c2afa5d',
+        'HOST': 'ec2-54-83-3-101.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -83,6 +83,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Static files (CSS, JavaScript, Images)
 
@@ -104,21 +105,21 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('localhost', 6379)],
+            'hosts': [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
     },
 }
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
 
-# SOCIAL_AUTH_GITHUB_KEY = '6c3b57661dfb488a128b'
-# SOCIAL_AUTH_GITHUB_SECRET = 'eccfb3991efc8ca3c0875f482cb464a6fcdf28ca'
+SOCIAL_AUTH_GITHUB_KEY = '6c3b57661dfb488a128b'
+SOCIAL_AUTH_GITHUB_SECRET = 'eccfb3991efc8ca3c0875f482cb464a6fcdf28ca'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1069756712632-mpcoplm3s5lkm331jkbmgeci9t4c6eps.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WY4RJ01ZTA8dD8qziJMpsrMR'
