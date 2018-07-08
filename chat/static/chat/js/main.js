@@ -3,7 +3,7 @@ var user_online = document.cookie.split('=')[2].split(';')[0];
 var full_name = document.cookie.split('=')[3];
 
 if (user_online) {
-    var onlineSocket = new WebSocket('ws://' + window.location.host);
+    var onlineSocket = new WebSocket('wss://' + window.location.host);
     
     onlineSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
