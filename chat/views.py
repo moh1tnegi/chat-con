@@ -125,7 +125,7 @@ def dashboard(request):
 
 def login_form(request):
     if request.session.get('session_up', 0):
-        return redirect('http://127.0.0.1:8000')
+        return redirect('https://chatcon.herokuapp.com/')
     global sentinel
     sentinel = 0
     return render(request, 'chat/login.html')
@@ -133,7 +133,7 @@ def login_form(request):
 
 def signup_form(request):
     if request.session.get('session_up', 0):
-        return redirect('http://127.0.0.1:8000')
+        return redirect('https://chatcon.herokuapp.com/')
     global sentinel
     sentinel = 1
     return render(request, 'chat/signup.html')
@@ -146,7 +146,7 @@ def log_out(request):
     del request.session['username']
     del request.session['usr_pass']
     request.session['session_up'] = False
-    return redirect('http://127.0.0.1:8000')
+    return redirect('https://chatcon.herokuapp.com/')
 
 
 def contact_form(request):
