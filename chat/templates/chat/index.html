@@ -72,7 +72,7 @@
                             <a href="#" class="acnt-changes">Change your password</a>
                         </li> -->
                         <li class="list-group-item list-group-item-success" id="show-new" style="display: none;"><strong>New Message(s)</strong></li>
-                        <li class="list-group-item list-group-item-danger" id="no-new">No new message! :(</li>
+                        <li class="list-group-item list-group-item-warning" id="no-new">No new message! :(</li>
                     </ul>
                 </div>
             </div>
@@ -90,5 +90,6 @@
     }
 </script>
 <script src="{% static 'chat/js/basic.js' %}"></script>
+<script type="text/javascript" src='{% static "chat/js/reconnecting-websocket.min.js" %}'></script>
 <script type="text/javascript" src="{% static 'chat/js/main.js' %}"></script>
 {% endblock %}
