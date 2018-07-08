@@ -8,30 +8,64 @@
 {% block div %}
     <div class="container text-center form-div">
         <center>
-            <div class="col form-box" style="height:380px;">
-                <h1>Log In</h1><hr><br>
+            <div class="col form-box">
+                <h1>Log In</h1><hr>
                 <form action="{% url 'chat:dashboard' %}" method="post" novalidate>
                     {% csrf_token %}
                     <label for="username">
                         <strong>Username: </strong>
+                        <input class="input-field" type="text" name="uname" id="username" placeholder="Enter your username" autofocus/>
                     </label>
-                    <input class="input-field" type="text" name="uname" id="username" placeholder="Enter your username" autofocus/>
                     <br>
 
                     <label for="password">
                         <strong>Password: </strong>
+                        <input class="input-field" type="password" name="passwd" id="password" placeholder="********">
                     </label>
-                    <input class="input-field" type="password" name="passwd" id="password" placeholder="********">
                     <button type="submit" class="btn btn-success" style="margin-bottom:5px;">Login</button><br>
                 </form>
+                <div>
+                    <p>Or login with :<br>
+                        <!-- <a href="{% url 'social:begin' 'github' %}">Github</a> -->
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a>
+                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">Facebook</fb:login-button>
+                    </p>
                 {% if error %}
-                    <p style="color:#ff0000;">{{ error }}</p>
-                {% else %}
-                    <div style="margin:40px;"></div>
+                    <p style="margin-bottom:0;color:#ff0000;">{{ error }}</p>
                 {% endif %}
                 <hr>
                 <a href="{% url 'chat:signup' %}">Create a new account</a> | <a href="#">Forgot Password?</a>
             </div>
         </center>
     </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '175150596679745',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v3.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+</script>
 {% endblock %}

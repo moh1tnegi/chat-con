@@ -29,9 +29,8 @@
                     <button type="submit" class="btn btn-success">Sign Up</button><br>
     		    </form>
                 {% if error %}
-                    <p style="color:#0000ff;">{{ error }}</p>
+                    <p style="color:#0000ff;margin:0">{{ error }}</p>
                 {% endif %}
-                    <hr style="margin-bottom: 15px;">
                 <a href="{% url 'chat:login' %}">Already have an account?</a>
    	    	</div>
     	</center>

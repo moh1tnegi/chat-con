@@ -52,7 +52,7 @@
 }
 
 .msg-box-border {
-	border-width:0 5px 3px 5px;
+	border-width:0 5px 5px 5px;
 	border-style: groove;
 	border-color: #fff;
 	overflow-y: auto;
@@ -116,7 +116,7 @@
 }
 
 #msg-input {
-	width: 92%;
+	width: 83%;
 	padding: 5px;
 	background-color: #fff;
 	color: #000;

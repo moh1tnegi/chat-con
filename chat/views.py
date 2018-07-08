@@ -7,12 +7,12 @@ from . import models
 
 import json
 import re
-# import logging
+import logging
 
-# logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/debug.log',
-#                     level=logging.DEBUG,
-#                     filemode='w')
-# logger = logging.getLogger()
+logging.basicConfig(filename='/home/mohit/Documents/git_repos/chat-con/debug.log',
+                    level=logging.DEBUG,
+                    filemode='w')
+logger = logging.getLogger()
 # logger.debug('#logging starts!')
 sentinel = 1  # is it login or signup request?
 
@@ -140,13 +140,17 @@ def signup_form(request):
 
 
 def log_out(request):
-    u = models.User.objects.get(username__exact=request.session['username'])
-    u.is_online = False
-    u.save()
-    del request.session['username']
-    del request.session['usr_pass']
-    request.session['session_up'] = False
-    return redirect('http://127.0.0.1:8000')
+    try:
+        u = models.User.objects.get(username__exact=request.session['username'])
+        u.is_online = False
+        u.save()
+        del request.session['username']
+        del request.session['usr_pass']
+        request.session['session_up'] = False
+    except KeyError:
+        pass
+    finally:
+        return redirect('http://127.0.0.1:8000')
 
 
 def contact_form(request):
@@ -157,3 +161,12 @@ def contact_form(request):
     else:
         form = ContactForm()
     return render(request, 'chat/contact.html', {'form': form, 'user_session': request.session.get('username', 0)})
+
+
+# def social_oauth(request):
+#     logger.debug(request)
+#     logger.debug('^^^^^^^^^^')
+#     # request.session['username'] = uname
+#     # request.session['usr_pass'] = passwd
+#     # request.session['session_up'] = True
+#     return render(request, 'chat/auth.html', {'user_session': 'hoy', 'full_name': '89'})

@@ -63,11 +63,11 @@ WSGI_APPLICATION = 'chat-con.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd230l8mhskmql0',
-        'USER': 'pmywwapewcpkeq',
-        'PASSWORD': 'e64432d1e75bf192d447e3b978b8ff53749e8870236e009825758d854c2afa5d',
-        'HOST': 'ec2-54-83-3-101.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'NAME': 'chatcon',  #'d230l8mhskmql0',
+        'USER': 'mohit_negi',  #'pmywwapewcpkeq',
+        'PASSWORD': 'Pass123',  #'e64432d1e75bf192d447e3b978b8ff53749e8870236e009825758d854c2afa5d',
+        'HOST': 'localhost',  #'ec2-54-83-3-101.compute-1.amazonaws.com',
+        'PORT': ''  #'5432'
     }
 }
 
@@ -91,7 +91,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -110,11 +110,18 @@ CHANNEL_LAYERS = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GITHUB_KEY = '6c3b57661dfb488a128b'
-SOCIAL_AUTH_GITHUB_SECRET = 'eccfb3991efc8ca3c0875f482cb464a6fcdf28ca'
+# SOCIAL_AUTH_GITHUB_KEY = '6c3b57661dfb488a128b'
+# SOCIAL_AUTH_GITHUB_SECRET = 'eccfb3991efc8ca3c0875f482cb464a6fcdf28ca'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1069756712632-mpcoplm3s5lkm331jkbmgeci9t4c6eps.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WY4RJ01ZTA8dD8qziJMpsrMR'
+
+SOCIAL_AUTH_FACEBOOK_KEY = ''
+SOCIAL_AUTH_FACEBOOK_SECRET = ''

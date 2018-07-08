@@ -17,12 +17,14 @@ hr {
 .form-box {
 	padding: 25px;
 	width: 400px;
+	height: 430px;
 	background-color: snow;
 	border-radius: 20px;
 }
 
 label {
 	margin-bottom: 20px;
+	display: inline-flex;
 }
 
 .input-field {
