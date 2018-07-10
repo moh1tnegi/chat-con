@@ -2,6 +2,10 @@ body {
     background-color: #90ee90;
 }
 
+* {
+    outline-color: #55FF55;
+}
+
 .navbar {
     padding: 15px 0px;
     background: rgba(0, 0, 0, 0.7);
@@ -18,6 +22,11 @@ body {
 
 .nav-item.active {
     padding-left: 30px;
+}
+
+.navbar-dark .navbar-brand, .navbar-dark .navbar-nav .active>.nav-link {
+    color:#55FF55;
+    font-weight: bolder;
 }
 
 a.nav-link:hover {

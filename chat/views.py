@@ -19,13 +19,13 @@ import re
 sentinel = 1  # is it login or signup request?
 
 
-def save_info(unm, pwd, pnm, fname, lname):
+def save_info(unm, pwd, eml, fname, lname):
     user = models.User()
     user.firstname = fname
     user.lastname = lname
     user.username = unm
     user.password = pwd
-    user.phn_numb = pnm
+    user.email = eml
     user.is_online = True
     user.save()
 
@@ -46,9 +46,9 @@ def login_auth(*args):
 def registration(**kwargs):
     unm = kwargs.get('uname', 0)
     pwd = kwargs.get('passwd', 0)
-    pnm = kwargs.get('phnum', 0)
+    eml = kwargs.get('email', 0)
 
-    if unm and pwd and pnm:
+    if unm and pwd and eml:
         try:
             models.User.objects.get(pk=unm)
             yield from (0, {'error': "Username already taken!"})
@@ -56,14 +56,14 @@ def registration(**kwargs):
         except ObjectDoesNotExist:
             pass
 
-        if not re.match(r'^\d{9}\d$', pnm):
-            yield from (0, {'error': "Enter a valid phone number!"})
+        if not re.match(r'', eml):
+            yield from (0, {'error': "Enter a valid email address"})
             return
 
         try:
-            save_info(unm, pwd, pnm, kwargs.get('fname', 0), kwargs.get('lname', 0))
+            save_info(unm, pwd, eml, kwargs.get('fname', ''), kwargs.get('lname', ''))
         except IntegrityError:
-            yield from(0, {'error': "Phone number already exist!"})
+            yield from(0, {'error': "Email address already exist!"})
             return
         yield from(1, 0)
 
@@ -93,14 +93,14 @@ def dashboard(request):
     if request.method == 'POST':
         uname = request.POST['uname']
         passwd = request.POST['passwd']
-        phnum = request.POST.get('phnum', 0)
+        email = request.POST.get('email', 0)
         error = ''
 
         if sentinel:
             #  sign up in progress
             fname = request.POST.get('fname', 0)
             lname = request.POST.get('lname', 0)
-            auth, error = registration(fname=fname, lname=lname, uname=uname, passwd=passwd, phnum=phnum)
+            auth, error = registration(fname=fname, lname=lname, uname=uname, passwd=passwd, email=email)
         else:
             # login in progress
             auth = login_auth(uname, passwd)
@@ -171,11 +171,11 @@ def contact_form(request):
 
 
 def social_auth(request):
-    auth_user = request.user.username
+    auth_email = request.user.email
+    auth_user = auth_email.split('@')[0]
     auth_fname = request.user.first_name
     auth_lname = request.user.last_name
     auth_full = auth_fname + ' ' + auth_lname
-    auth_email = request.user.email[:13]
     auth_hash_pass = request.user.password
     
     try:
@@ -196,6 +196,5 @@ def social_auth(request):
     user_data = {'user_session': auth_user,
         'full_name': auth_full,
         'online': online_users,
-        'email': auth_email,
     }
     return render(request, 'chat/auth.html', user_data)
