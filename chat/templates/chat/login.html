@@ -22,13 +22,14 @@
                         <strong>Password: </strong>
                         <input class="input-field" type="password" name="passwd" id="password" placeholder="********">
                     </label>
+                    <br>
                     <button type="submit" class="btn btn-success" style="margin-bottom:5px;">Login</button><br>
                 </form>
                 <div>
                     <p>Or login with :<br>
                         <!-- <a href="{% url 'social:begin' 'github' %}">Github</a> -->
                         <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a>
-                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">Facebook</fb:login-button>
+                        <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">Facebook</fb:login-button> -->
                     </p>
                 {% if error %}
                     <p style="margin-bottom:0;color:#ff0000;">{{ error }}</p>

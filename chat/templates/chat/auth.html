@@ -1,0 +1,13 @@
+{% extends 'chat/base.html' %}
+
+{% block div %}
+	<a style="display:none;" id="to_dashboard" href="{% url 'chat:dashboard' %}"></a>
+{% endblock %}
+
+{% block script %}
+<script>
+	$(document).ready(function() {
+		document.querySelector('#to_dashboard').click();
+	});
+</script>
+{% endblock %}
