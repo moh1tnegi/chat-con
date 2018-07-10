@@ -97,7 +97,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/auth_complete/'
 
 ASGI_APPLICATION = 'chat-con.routing.application'
 
