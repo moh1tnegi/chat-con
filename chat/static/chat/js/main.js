@@ -72,6 +72,7 @@ onlineSocket.onmessage = function(e) {
                 $('#add_new_area').append($('<textarea>').attr({
                         id: msg_from,
                         class: 'text-msg round-corn',
+                        autocomplete: 'off',
                         disabled: true
                     })
                 );
@@ -152,6 +153,7 @@ function start_conv(e) {
             $('<textarea>').attr({
                 id: name,
                 class: 'text-msg round-corn',
+                autocomplete: 'off',
                 disabled: true
             })).show();
     }

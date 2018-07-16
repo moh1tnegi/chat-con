@@ -17,25 +17,34 @@ hr {
 .form-box {
 	padding: 25px;
 	width: 400px;
-	height: 430px;
+	height: 460px;
 	background-color: snow;
 	border-radius: 20px;
 }
 
 label {
-	margin-bottom: 20px;
 	display: inline-flex;
 }
 
 .input-field {
 	padding-left: 5px;
 	background-color: transparent;
+	outline: none;
 	border: 1px solid #808080;
 	color: #000;
+	margin-bottom: 20px;
 	border-radius: 10px;
 }
 
 .signup-auth {
     width:300px;
     margin-bottom: 4px;
+}
+
+.in-valid {
+	display: none;
+	margin-top: -4px;
+	margin-bottom: 0;
+	padding: 0;
+	font-size: 12px;
 }

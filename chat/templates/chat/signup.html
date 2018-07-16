@@ -10,22 +10,29 @@
     	<center>
     		<div class="col form-box">
     			<h1>Sign Up</h1><hr>
-		        <form action="{% url 'chat:dashboard' %}" method="post" class="signup-auth" novalidate>
+		        <form action="{% url 'chat:dashboard' %}" method="post" class="signup-auth" autocomplete="off" novalidate>
                     {% csrf_token %}
                     <label for="fname">First Name: </label>
-                    <input type="text" id="fname" name="fname" class="input-field" placeholder="Elon" autofocus>
+                    <input type="text" id="fname" name="fname" class="input-field" placeholder="Enter your first name." autofocus>
 
                     <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" name="lname" class="input-field" placeholder="Musk">
+                    <input type="text" id="lname" name="lname" class="input-field" placeholder="Enter your last name.">
 
                     <label for="uname">Username:*</label>
-                    <input type="text" id="uname" name="uname" class="input-field" placeholder="3l0nmu5k">
+                    <input type="text" id="uname" name="uname" class="input-field" placeholder="Enter a unique username.">
+                    <p class="in-valid offset-2" style="color:#ff0000;margin-left:15%;" id="no-spc">No whitespaces allowed!</p>
 
                     <label for="passwd">Password:*</label>
                     <input type="password" id="passwd" name="passwd" class="input-field" placeholder="Enter a strong password."/>
+                    <p class="in-valid" style="color:#ff0000;" id="weak-pass">Strength: Weak!</p>
+                    <p class="in-valid" style="color:#ff9800;" id="med-pass">Strength: Medium!</p>
+                    <p class="in-valid" style="color:#4caf50;" id="str-pass">Strength: Strong!</p>
 
-                    <label for="phnum">Phone No:*</label>
-                    <input type="text" id="phnum" name="phnum" class="input-field" placeholder="10-digit phone number"/>
+                    <label for="eml" class="offset-1">Email:*</label>
+                    <input type="text" id="eml" name="eml" class="input-field" placeholder="Enter your email address."/>
+                    <p class="in-valid" style="color:#ff0000;" id="inv-eml">Invalid!</p>
+                    <p class="in-valid" style="color:#4caf50;" id="val-eml">Valid!</p>
+
                     <button type="submit" class="btn btn-success">Sign Up</button><br>
     		    </form>
                 {% if error %}
@@ -35,4 +42,8 @@
    	    	</div>
     	</center>
     </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'chat/js/form.js' %}"></script>
 {% endblock %}
