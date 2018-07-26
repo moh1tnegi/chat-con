@@ -10,7 +10,7 @@
         <center>
             <div class="col form-box">
                 <h1>Log In</h1><hr>
-                <form action="{% url 'chat:dashboard' %}" method="post" novalidate>
+                <form action="{% url 'chat:dashboard' %}" method="post" novalidate autocomplete="off">
                     {% csrf_token %}
                     <label for="username">
                         <strong>Username: </strong>

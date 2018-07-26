@@ -72,7 +72,6 @@ onlineSocket.onmessage = function(e) {
                 $('#add_new_area').append($('<textarea>').attr({
                         id: msg_from,
                         class: 'text-msg round-corn',
-                        autocomplete: 'off',
                         disabled: true
                     })
                 );
@@ -114,7 +113,6 @@ onlineSocket.onopen = function(e) {
 onlineSocket.onclose = function(e) {
     document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "fullname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    alert('Something went wrong. Please refresh the page!');
     console.error('Achanak band ho gya bhai!!!');
 };
 
@@ -153,7 +151,6 @@ function start_conv(e) {
             $('<textarea>').attr({
                 id: name,
                 class: 'text-msg round-corn',
-                autocomplete: 'off',
                 disabled: true
             })).show();
     }
