@@ -8,5 +8,5 @@ msgpack-python==0.4.8
 psycopg2-binary==2.7.4
 redis==2.10.5
 social-auth-app-django==2.1.0
-Twisted==18.4.0
+Twisted==21.2.0
 whitenoise==3.3.1
